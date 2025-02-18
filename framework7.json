@@ -1,0 +1,26 @@
+{
+  "cwd": "/home/andreock/work/new_capibarazero",
+  "type": [
+    "pwa",
+    "capacitor"
+  ],
+  "name": "CapibaraZero",
+  "framework": "svelte",
+  "template": "tabs",
+  "bundler": "vite",
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": true,
+    "color": "#8e7559",
+    "darkMode": true,
+    "iconFonts": true
+  },
+  "customBuild": false,
+  "pkg": "io.framework7.myapp",
+  "capacitor": {
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
+}

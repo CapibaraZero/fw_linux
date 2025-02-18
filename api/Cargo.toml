@@ -1,0 +1,46 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+build = "src/build.rs"
+
+[dependencies]
+axum = {version = "0.8.1", features = ["ws", "multipart"]}
+tokio = { version = "1.43.0", features = ["full"] }
+serde = { version = "1.0.217", features = ["derive"]}
+serde_json = "1.0.138"
+tower-http = {version = "0.6.2", features = ["full"]}
+bluer = { version = "0.17.3", features = ["full"] }
+futures = "0.3.31"
+axum-extra = {version = "0.10.0" , features = ["typed-header"]}
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tokio-tungstenite = "0.26.0"
+headers = "0.4"
+rand = "0.9.0"
+pnet = "0.35.0"
+netdev = "0.32.0"
+bollard = "0.18.1"
+pcap = "2.2.0"
+chrono = "0.4.39"
+libc = "0.2.169"
+zip = "2.2.2"
+dotenv = "0.15.0"
+
+[build-dependencies]
+cc = "1.2.13"
+
+[workspace.metadata.cross.target.aarch64-unknown-linux-gnu]
+# Install libssl-dev:arm64, see <https://github.com/cross-rs/cross/blob/main/docs/custom_images.md#adding-dependencies-to-existing-images>
+pre-build = [
+    "dpkg --add-architecture $CROSS_DEB_ARCH",
+    "apt-get update && apt-get --assume-yes install libdbus-1-dev:$CROSS_DEB_ARCH libpcap-dev:$CROSS_DEB_ARCH libnfc-dev:$CROSS_DEB_ARCH libusb-dev:$CROSS_DEB_ARCH libcjson-dev:$CROSS_DEB_ARCH libcjson1:$CROSS_DEB_ARCH"
+]
+
+[[bin]]
+edition = "2021"
+name = "capibarazero_api"
+path = "src/main.rs"
+
+[build.env]
+passthrough = ["LD_LIBRARY_PATH=/"]
