@@ -1,0 +1,16 @@
+{
+  "appId": "io.framework7.myapp",
+  "appName": "CapibaraZero",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  },
+  "cordova": {}
+}
