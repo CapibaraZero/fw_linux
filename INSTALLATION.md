@@ -56,6 +56,31 @@ sudo apt install openwebrx
 ```bash
 sudo nmcli d wifi hotspot ifname wlan0 ssid YOUR_SSID password YOUR_PASSWORD
 sudo nmcli connection modify Hotspot connection.autoconnect yes
+
+# Run this command to save some energy
+echo "[Unit]
+Description=Run capibarazero API server
+DefaultDependencies=no
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/root/wifi_tx_limit.sh
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
+" | sudo tee -a /etc/systemd/system/wifi_limit.service
+
+echo "#!/bin/sh
+iwconfig wlan0 txpower 1
+" | sudo tee -a /root/wifi_tx_limit.sh
+
+sudo chmod +x /root/wifi_tx_limit.sh
+systemctl daemon-reload
+systemctl enable wifi_limit
 ```
 
 #### Post installation command
